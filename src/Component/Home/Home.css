@@ -1,0 +1,25 @@
+h1 {
+  text-align: center;
+}
+form {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 40px;
+}
+#post {
+  padding: 20px;
+}
+button {
+  width: 100%;
+}
+label {
+  font-size: 20px;
+  font-weight: bold;
+}
+#Home > div {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 40px;
+}
