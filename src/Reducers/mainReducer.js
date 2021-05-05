@@ -11,7 +11,7 @@ const Reducer = (state = initState, action) => {
         case 'USERS':
             return {...state,users:[...state.users,...action.users]}
         case 'POSTS':
-            return {...state,posts:[...action.posts,...state.posts]}
+            return {...state,posts:[...state.posts,...action.posts]}
         case 'USERNAME':
             return {...state,username:action.username}
         case 'TOKEN':
@@ -23,7 +23,7 @@ const Reducer = (state = initState, action) => {
             return {...state,posts:posts}
         case 'EDIT':
             let Posts = state.posts;
-            let objIndex = Posts.findIndex((obj => obj.id == action.id));
+            let objIndex = Posts.findIndex((obj => obj.id === action.id));
             Posts[objIndex]['body'] = action.body;
             return {...state,posts:Posts}
         default:

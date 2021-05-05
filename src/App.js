@@ -1,7 +1,6 @@
-import React,{Component, createContext} from 'react';
+import React,{Component} from 'react';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from './Component/Nav/Nav';
 import Home from './Component/Home/Home';
 import Login from './Component/Login/Login';
@@ -9,8 +8,8 @@ import Register from './Component/Register/Register';
 import Following from './Component/Following/Following';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import ProfilePage from './Component/ProfilePage/ProfilePage';
 
-export const context = createContext()
 class App extends Component {
 
   loginHandling = (user,pass) => {
@@ -60,12 +59,6 @@ class App extends Component {
 
   }
   
-  HomeComponent = () =>{
-    return(
-      <Home creatPost={this.creatPost} posts={this.props.posts} users={this.props.users} />
-    ); 
-  }
-
   logoutHandling = ()=>{localStorage.clear(); this.props.cookiesClear();}
 
   render(){
@@ -76,12 +69,14 @@ class App extends Component {
       };
     return (
       <div className="App">
+          
           <BrowserRouter>
           <Nav logoutHandling={this.logoutHandling} username={this.props.username}/> 
           
-          <Route path='/' exact  render={this.HomeComponent} />
+          <Route path='/' exact  component={Home} />
           {this.props.token?
             <Switch>
+            <Route path={'/'+localStorage.getItem('username')} exact component={ProfilePage} />
             <Route path='/following' exact component={Following} />
             <Route path='/following/:id' exact component={Following} />
             <Redirect from="/:any" to="/"/>

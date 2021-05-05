@@ -29,13 +29,13 @@ class Login extends Component{
             <div>
                 <h2>Login</h2>
                 <form onSubmit={this.loginHandling}>
-                    <div className="form-group">
+                    <div className="form-group mb-3">
                         <input onChange={this.changeHandling} name="name" value={this.state.name} autoFocus className="form-control" type="text" placeholder="Username"/>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group mb-3">
                         <input onChange={this.changeHandling} name="password" value={this.state.password} className="form-control" type="password" placeholder="Password"/>
                     </div>
-                    <input className="btn btn-primary" type="submit" value="Login"/>
+                    <input className="btn btn-dark" type="submit" value="Login"/>
                 </form>
             </div>
         );

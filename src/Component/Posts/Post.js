@@ -6,7 +6,9 @@ class Post extends Component {
     
     state={
         toggle:true,
-        body:this.props.post.body
+        body:this.props.post.body,
+        likes:this.props.post.likes.length
+
     }
 
      toggleState = ()=>{
@@ -37,29 +39,60 @@ class Post extends Component {
         .catch(err => console.error(err))
     }
 
+    likePost = (e)=>{
+        const exist = this.props.post.likes.filter(like => like == localStorage.getItem('userid'))
+        if (!exist.length){
+            console.log(parseInt(localStorage.getItem('userid')))
+            console.log([...this.props.post.likes])
+        
+            axios.put(`posts/${this.props.post.id}/`,{
+                publicher: this.props.post.publicher,
+                body:this.state.body,
+                likes:[...this.props.post.likes,parseInt(localStorage.getItem('userid'))],
+            })
+            .catch(err => console.error(err))
+            this.setState({
+                likes:this.state.likes+1
+            });
+        }
+        else{
+            
+            const likes = this.props.post.likes.filter(like => like != localStorage.getItem('userid'))
+            console.log(likes);
+            axios.put(`posts/${this.props.post.id}/`,{
+                publicher: this.props.post.publicher,
+                body:this.state.body,
+                likes:likes,
+            })
+            this.setState({
+                likes:this.state.likes-1
+            });
+        }
+    }
+
     editForm = (post,user)=>{
         return(
-            <div>
+            <div className="posts">
                 <h3>{user&&user.username}</h3>
                 <form onSubmit={this.submitHandling}>
                 <textarea style={{width:'100%',height:'150px'}} onChange={this.changeHandling} value={this.state.body}/>
                 <input type='submit'/>
                 </form>
                 <u>{post&&post.date}</u>
-                <h5>Likes: {post.likes&&post.likes.length}</h5>
+                <h5><span onClick={this.likePost}>Likes:</span> {post.likes&&this.state.likes}</h5>
             </div>
         );
     }
 
      form = (post,user)=>{
         return(
-            <div key={post.id} className={'post '+post.id} role="alert">
+            <div key={post.id} className={'post '+post.id+"col col-6 "} role="alert">
                 <h3>{user&&user.username}</h3>
                 <p>{post&&post.body}</p>
                 <u>{post&&post.date}</u>
-                <h5>Likes: {post.likes&&post.likes.length}</h5>
-                <button onClick={()=>this.deleteHandling(post.id)}>Delete</button>
-                <button onClick={this.toggleState}>Edit</button>
+                <h5><span onClick={this.likePost}>Likes:</span> {post.likes&&this.state.likes}</h5>
+                <button className="btn btn-danger m-1" onClick={()=>this.deleteHandling(post.id)}>Delete</button>
+                <button className="btn btn-warning" onClick={this.toggleState}>Edit</button>
             </div>
         );
     }

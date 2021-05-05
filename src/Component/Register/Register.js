@@ -33,19 +33,19 @@ class Register extends Component{
             <div>
                 <h2>Register</h2>
                 <form onSubmit={this.submitHandling}>
-                    <div className="form-group">
+                    <div className="form-group mb-3">
                         <input onChange={this.changeHandling} value={this.state.username} className="form-control" autoFocus type="text" name="username" placeholder="Username"/>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group mb-3">
                         <input onChange={this.changeHandling} value={this.state.email} className="form-control" type="email" name="email" placeholder="Email Address"/>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group mb-3">
                         <input onChange={this.changeHandling} value={this.state.password} className="form-control" type="password" name="password" placeholder="Password"/>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group mb-3">
                         <input onChange={this.changeHandling} value={this.state.confirmation} className="form-control" type="password" name="confirmation" placeholder="Confirm Password"/>
                     </div>
-                    <input className="btn btn-primary" type="submit" value="Register"/>
+                    <input className="btn btn-dark" type="submit" value="Register"/>
                 </form>
             </div>
         );
